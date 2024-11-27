@@ -5,13 +5,12 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float _value;
     
-    public UnityEvent Damaged;
-    public UnityEvent Healed;
-    public UnityEvent Killed;
-
     private float _maxHealth = 100f;
     private float _minHealth = 0f;
-
+    
+    public event UnityAction Damaged;
+    public event UnityAction Healed;
+    
     public float ReturnCurrentHealth()
     {
         return _value;
@@ -25,10 +24,9 @@ public class Health : MonoBehaviour
         {
             _value = _minHealth;
             Die();
-            Killed.Invoke();
         }
         
-        Damaged.Invoke();
+        Damaged?.Invoke();
     }
 
     public void TakeCure(float value)
@@ -40,7 +38,7 @@ public class Health : MonoBehaviour
             _value = _maxHealth;
         }
         
-        Healed.Invoke();
+        Healed?.Invoke();
     }
     
     public float GetHealthNormalized() 
