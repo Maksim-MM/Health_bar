@@ -229,15 +229,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 100
-  Damaged:
-    m_PersistentCalls:
-      m_Calls: []
-  Healed:
-    m_PersistentCalls:
-      m_Calls: []
-  Killed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &219454441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,8 +336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c9899f8c85c74f9bab72a4e9b911339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 297472336}
   _health: {fileID: 219454440}
+  _text: {fileID: 297472336}
 --- !u!114 &297472336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1653,8 +1644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49355c5395c784dc5be4c131e227528f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slider: {fileID: 1841306744}
   _health: {fileID: 219454440}
+  _slider: {fileID: 1841306744}
 --- !u!114 &1841306744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1762,9 +1753,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd56ccde64584f348e9f86186392f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _barImage: {fileID: 8989257925322135404}
-  _damagedBarImage: {fileID: 8688674757213379458}
   _health: {fileID: 219454440}
+  _barImage: {fileID: 8989257925322135404}
 --- !u!223 &3794520971182025466
 Canvas:
   m_ObjectHideFlags: 0
@@ -1882,7 +1872,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &6072524566625283233
 MonoBehaviour:
   m_ObjectHideFlags: 0

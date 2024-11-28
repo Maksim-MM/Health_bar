@@ -1,30 +1,17 @@
 using TMPro;
 using UnityEngine;
 
-public class TextHealthBar : MonoBehaviour
+public class TextHealthBar : HealthBar
 {
     [SerializeField] private TextMeshProUGUI _text;
-    [SerializeField] private Health _health;
 
-    private void OnEnable()
+    protected override void Init()
     {
-        _health.Damaged += ShowHealth;
-        _health.Healed += ShowHealth;
+        UpdateDisplay();
     }
 
-    private void OnDisable()
+    protected override void UpdateDisplay()
     {
-        _health.Damaged -= ShowHealth;
-        _health.Healed -= ShowHealth;
-    }
-    
-    private void Start()
-    {
-        ShowHealth();
-    }
-
-    private void ShowHealth()
-    {
-        _text.text = _health.ReturnCurrentHealth() + "/100";
+        _text.text = _health.ReturnCurrent() + "/100";
     }
 }

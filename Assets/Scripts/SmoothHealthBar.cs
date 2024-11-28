@@ -2,90 +2,41 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SmoothHealthBar : MonoBehaviour
+public class SmoothHealthBar : HealthBar
 {
     [SerializeField] private Image _barImage;
-    [SerializeField] private Image _damagedBarImage;
-    [SerializeField] private Health _health;
  
-    private float _shrinkDelay = .6f;
-    private float _fillDelay = .1f;
+    private float _delay = .2f;
     private float _speed = 1f;
     
-    private Coroutine _shrinkCoroutine;
-    private Coroutine _fillCoroutine;
-    
-    private void OnEnable()
+    private Coroutine _changeCoroutine;
+
+    protected override void Init()
     {
-        _health.Damaged += SetDamageFill;
-        _health.Healed += SetCurrentFill;
+        _barImage.fillAmount = _health.GetNormalized();
     }
 
-    private void OnDisable()
+    protected override void UpdateDisplay()
     {
-        _health.Damaged -= SetDamageFill;
-        _health.Healed -= SetCurrentFill;
-    }
-
-    private void Start()
-    {
-        SetBarFill(_health.GetHealthNormalized());
-        
-        _damagedBarImage.fillAmount = _barImage.fillAmount;
-    }
-
-    private void SetCurrentFill()
-    {
-        if (_fillCoroutine != null)
+        if (_changeCoroutine != null)
         {
-            StopCoroutine(_fillCoroutine);
+            StopCoroutine(_changeCoroutine);
         }
 
-        _shrinkCoroutine = StartCoroutine(FillHealthBar());
-    }
-    
-    private void SetBarFill(float healthNormalized)
-    {
-        _barImage.fillAmount = healthNormalized;
+        _changeCoroutine = StartCoroutine(SetFill());
     }
 
-    private void SetDamageFill()
+    private IEnumerator SetFill()
     {
-        SetBarFill(_health.GetHealthNormalized());
+        yield return new WaitForSeconds(_delay);
 
-        if (_shrinkCoroutine != null)
-        {
-            StopCoroutine(_shrinkCoroutine);
-        }
+        float targetFill = _health.GetNormalized();
 
-        _shrinkCoroutine = StartCoroutine(ShrinkDamagedBar());
-    }
-
-    private IEnumerator FillHealthBar()
-    {
-        yield return new WaitForSeconds(_fillDelay);
-
-        while (_barImage.fillAmount < _health.GetHealthNormalized())
+        while (!Mathf.Approximately(_barImage.fillAmount, targetFill))
         {
             _barImage.fillAmount = Mathf.MoveTowards(
                 _barImage.fillAmount,
-                _health.GetHealthNormalized(),
-                _speed * Time.deltaTime);
-            yield return null;
-        }
-        
-        _damagedBarImage.fillAmount = _barImage.fillAmount;
-    }
-    
-    private IEnumerator ShrinkDamagedBar()
-    {
-        yield return new WaitForSeconds(_shrinkDelay);
-
-        while (_damagedBarImage.fillAmount > _barImage.fillAmount)
-        {
-            _damagedBarImage.fillAmount = Mathf.MoveTowards(
-                _damagedBarImage.fillAmount,
-                _barImage.fillAmount,
+                targetFill,
                 _speed * Time.deltaTime);
             yield return null;
         }

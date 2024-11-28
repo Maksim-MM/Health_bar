@@ -1,30 +1,25 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public abstract class HealthBar : MonoBehaviour
 {
-    [SerializeField] private Slider _slider;
-    [SerializeField] private Health _health;
-    
+    [SerializeField] protected Health _health;
+
     private void OnEnable()
     {
-        _health.Damaged += ShowHealth;
-        _health.Healed += ShowHealth;
+        _health.Changed += UpdateDisplay;
     }
 
     private void OnDisable()
     {
-        _health.Damaged -= ShowHealth;
-        _health.Healed -= ShowHealth;
+        _health.Changed -= UpdateDisplay;
     }
 
     private void Start()
     {
-        _slider.value = _health.GetHealthNormalized();
+        Init();
     }
 
-    private void ShowHealth()
-    {
-        _slider.value = _health.GetHealthNormalized();
-    }
+    protected abstract void Init();
+    
+    protected abstract void UpdateDisplay();
 }
