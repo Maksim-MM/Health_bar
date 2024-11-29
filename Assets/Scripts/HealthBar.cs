@@ -1,17 +1,18 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class HealthBar : MonoBehaviour
 {
-    [SerializeField] protected Health _health;
+    [SerializeField] protected Health Health;
 
     private void OnEnable()
     {
-        _health.Changed += UpdateDisplay;
+        Health.Changed += UpdateDisplay;
     }
 
     private void OnDisable()
     {
-        _health.Changed -= UpdateDisplay;
+        Health.Changed -= UpdateDisplay;
     }
 
     private void Start()

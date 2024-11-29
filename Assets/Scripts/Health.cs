@@ -3,25 +3,20 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float _value;
+    [field: SerializeField] public float Value { get; private set; }
     
     private float _max = 100f;
     private float _min = 0f;
     
     public event UnityAction Changed;
-    
-    public float ReturnCurrent()
-    {
-        return _value;
-    }
-    
+
     public void TakeDamage(float damage)
     {
-        _value -= damage;
+        Value -= damage;
 
-        if (_value <= _min)
+        if (Value <= _min)
         {
-            _value = _min;
+            Value = _min;
         }
         
         Changed?.Invoke();
@@ -29,11 +24,11 @@ public class Health : MonoBehaviour
 
     public void TakeCure(float value)
     {
-        _value += value;
+        Value += value;
         
-        if (_value > _max)
+        if (Value > _max)
         {
-            _value = _max;
+            Value = _max;
         }
         
         Changed?.Invoke();
@@ -41,6 +36,6 @@ public class Health : MonoBehaviour
     
     public float GetNormalized() 
     {
-        return _value / _max;
+        return Value / _max;
     }
 }

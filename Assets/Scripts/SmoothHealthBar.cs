@@ -13,7 +13,7 @@ public class SmoothHealthBar : HealthBar
 
     protected override void Init()
     {
-        _barImage.fillAmount = _health.GetNormalized();
+        _barImage.fillAmount = Health.GetNormalized();
     }
 
     protected override void UpdateDisplay()
@@ -30,7 +30,7 @@ public class SmoothHealthBar : HealthBar
     {
         yield return new WaitForSeconds(_delay);
 
-        float targetFill = _health.GetNormalized();
+        float targetFill = Health.GetNormalized();
 
         while (!Mathf.Approximately(_barImage.fillAmount, targetFill))
         {

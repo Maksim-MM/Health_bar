@@ -7,11 +7,11 @@ public class SimpleHealthBar : HealthBar
 
     protected override void Init()
     {
-        _slider.value = _health.GetNormalized();
+        _slider.value = Health.GetNormalized();
     }
 
     protected override void UpdateDisplay()
     {
-        _slider.value = _health.GetNormalized();
+        _slider.value = Health.GetNormalized();
     }
 }

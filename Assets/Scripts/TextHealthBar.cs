@@ -12,6 +12,6 @@ public class TextHealthBar : HealthBar
 
     protected override void UpdateDisplay()
     {
-        _text.text = _health.ReturnCurrent() + "/100";
+        _text.text = Health.Value + "/100";
     }
 }
